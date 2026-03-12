@@ -857,6 +857,176 @@
       font-size: 12px;
     }
 
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(44,26,18,0.6);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1; pointer-events: all;
+    }
+
+    .modal {
+      background: var(--cream);
+      border-radius: 8px;
+      width: 100%; max-width: 520px;
+      padding: 52px 48px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      background: none; border: none; cursor: pointer;
+      color: var(--light-text); font-size: 22px; line-height: 1;
+      padding: 4px 8px;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--rose); }
+
+    .modal-eyebrow {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--rose); margin-bottom: 12px;
+    }
+
+    .modal h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; font-weight: 300;
+      color: var(--deep); margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .modal h2 em { font-style: italic; color: var(--rose); }
+
+    .modal-sub {
+      font-size: 14px; font-weight: 300;
+      color: var(--light-text); line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .modal-plan-selector {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 28px;
+    }
+
+    .plan-option {
+      border: 1px solid rgba(184,149,106,0.3);
+      border-radius: 4px; padding: 12px 10px;
+      text-align: center; cursor: pointer;
+      transition: all 0.2s; background: white;
+    }
+
+    .plan-option:hover { border-color: var(--rose); }
+
+    .plan-option.selected {
+      border-color: var(--rose);
+      background: var(--rose); color: white;
+    }
+
+    .plan-option .p-name {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--deep);
+    }
+
+    .plan-option.selected .p-name { color: white; }
+
+    .plan-option .p-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 300;
+      color: var(--rose); margin-top: 4px;
+    }
+
+    .plan-option.selected .p-price { color: rgba(255,255,255,0.85); }
+
+    .form-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-bottom: 16px;
+    }
+
+    .form-group {
+      display: flex; flex-direction: column; gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--light-text);
+    }
+
+    .form-group input {
+      border: 1px solid rgba(184,149,106,0.3);
+      border-radius: 2px; padding: 12px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px; color: var(--text);
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus { border-color: var(--rose); }
+    .form-group input::placeholder { color: #c0b0a8; }
+
+    .modal-submit {
+      width: 100%; padding: 16px;
+      background: var(--rose); color: white;
+      border: none; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; margin-top: 8px;
+      transition: background 0.2s;
+    }
+
+    .modal-submit:hover { background: var(--deep); }
+    .modal-submit:disabled { background: var(--blush); cursor: not-allowed; }
+
+    .modal-legal {
+      font-size: 11px; color: var(--light-text);
+      text-align: center; margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .modal-success {
+      text-align: center; padding: 20px 0;
+    }
+
+    .modal-success .success-icon {
+      font-size: 48px; margin-bottom: 16px;
+    }
+
+    .modal-success h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 300;
+      color: var(--deep); margin-bottom: 12px;
+    }
+
+    .modal-success p {
+      font-size: 15px; font-weight: 300;
+      color: var(--light-text); line-height: 1.7;
+    }
+
+    .error-msg {
+      font-size: 12px; color: var(--rose);
+      margin-top: 4px; display: none;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 16px 24px; }
@@ -1142,6 +1312,75 @@
   </div>
 </section>
 
+<!-- SIGNUP MODAL -->
+<div class="modal-overlay" id="signupModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+
+    <!-- Form View -->
+    <div id="modalForm">
+      <div class="modal-eyebrow">Get Started</div>
+      <h2>Join Petals <em>&</em> Packages</h2>
+      <p class="modal-sub">Set up in 2 minutes. Your first month is free.</p>
+
+      <!-- Plan Selector -->
+      <div class="modal-plan-selector">
+        <div class="plan-option" data-plan="essentials" data-price-id="essentials_9" onclick="selectPlan(this)">
+          <div class="p-name">Essentials</div>
+          <div class="p-price">$9</div>
+        </div>
+        <div class="plan-option selected" data-plan="partner_pro" data-price-id="partner_pro_29" onclick="selectPlan(this)">
+          <div class="p-name">Partner Pro</div>
+          <div class="p-price">$29</div>
+        </div>
+        <div class="plan-option" data-plan="legendary" data-price-id="legendary_79" onclick="selectPlan(this)">
+          <div class="p-name">Legendary</div>
+          <div class="p-price">$79</div>
+        </div>
+      </div>
+
+      <!-- Fields -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="firstName" placeholder="Sarah" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="lastName" placeholder="Johnson" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="email" placeholder="sarah@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="+1 (555) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label>Your City</label>
+        <input type="text" id="city" placeholder="San Francisco" />
+        <span class="error-msg" id="formError">Please fill in all fields.</span>
+      </div>
+
+      <button class="modal-submit" id="submitBtn" onclick="submitSignup()">
+        Create My Account
+      </button>
+      <p class="modal-legal">By signing up you agree to our Terms of Service and Privacy Policy. No credit card required to start.</p>
+    </div>
+
+    <!-- Success View -->
+    <div id="modalSuccess" style="display:none;">
+      <div class="modal-success">
+        <div class="success-icon">🌸</div>
+        <h3>Welcome to Petals <em style="font-style:italic;color:var(--rose)">&</em> Packages</h3>
+        <p>You're all set! We'll be in touch shortly to help you get your first recipients added.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-top">
@@ -1174,6 +1413,119 @@
     <span>Made with 🌸 in San Francisco</span>
   </div>
 </footer>
+<script>
+  // Open/close modal
+  function openModal() {
+    document.getElementById('signupModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
+  function closeModal() {
+    document.getElementById('signupModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on overlay click
+  document.getElementById('signupModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // Plan selection
+  function selectPlan(el) {
+    document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Wire all CTA buttons to open modal
+  document.querySelectorAll('.btn-primary, .plan-btn, .nav-cta').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Format phone as user types
+  document.getElementById('phone').addEventListener('input', function() {
+    let val = this.value.replace(/\D/g, '');
+    if (val.length > 0 && !val.startsWith('1')) val = '1' + val;
+    if (val.length >= 11) {
+      val = '+' + val.substring(0,1) + ' (' + val.substring(1,4) + ') ' + val.substring(4,7) + '-' + val.substring(7,11);
+    }
+    this.value = val;
+  });
+
+  // Submit signup
+  async function submitSignup() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName  = document.getElementById('lastName').value.trim();
+    const email     = document.getElementById('email').value.trim();
+    const phone     = document.getElementById('phone').value.trim();
+    const city      = document.getElementById('city').value.trim();
+    const errorEl   = document.getElementById('formError');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Validation
+    if (!firstName || !lastName || !email || !phone || !city) {
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Please fill in all fields.';
+      return;
+    }
+    if (!email.includes('@')) {
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Please enter a valid email address.';
+      return;
+    }
+    errorEl.style.display = 'none';
+
+    // Get selected plan
+    const selectedPlan = document.querySelector('.plan-option.selected');
+    const planId    = selectedPlan.dataset.plan;
+    const priceId   = selectedPlan.dataset.priceId;
+
+    // Format phone to E.164
+    const rawPhone = phone.replace(/\D/g, '');
+    const e164Phone = '+' + (rawPhone.startsWith('1') ? rawPhone : '1' + rawPhone);
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Creating your account...';
+
+    try {
+      const response = await fetch('https://api.base44.com/api/apps/69ab692b0795da5a8fe80595/entities/Customer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName:    firstName + ' ' + lastName,
+          customerEmail:   email,
+          customerPhone:   e164Phone,
+          customerCity:    city,
+          selectedPlanId:  planId,
+          selectedPriceId: priceId,
+          smsOptIn:        true,
+          creditBalance:   0,
+          recipients:      [],
+          notificationPreferences: {
+            smsWeekBefore:         true,
+            smsDayOf:              true,
+            smsRestaurantSuggestions: true,
+            smsPromotions:         false,
+            smsOrderConfirmation:  true
+          }
+        })
+      });
+
+      if (response.ok) {
+        document.getElementById('modalForm').style.display = 'none';
+        document.getElementById('modalSuccess').style.display = 'block';
+      } else {
+        throw new Error('API error');
+      }
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Create My Account';
+      errorEl.style.display = 'block';
+      errorEl.textContent = 'Something went wrong. Please try again.';
+    }
+  }
+</script>
 </body>
 </html>
