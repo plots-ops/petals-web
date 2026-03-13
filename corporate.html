@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petals & Packages for Business</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sage: #7a9e7e;
+      --sage-light: #e8f0e9;
+      --sage-dark: #4a6b4e;
+      --blush: #e8c5b0;
+      --blush-light: #faf4f0;
+      --charcoal: #2a2a2a;
+      --warm-gray: #6b6560;
+      --off-white: #faf9f7;
+      --white: #ffffff;
+      --border: #e8e4df;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(250,249,247,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--charcoal);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .nav-logo span { color: var(--sage); }
+    .nav-badge {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--sage-dark);
+      background: var(--sage-light);
+      padding: 0.2rem 0.6rem;
+      border-radius: 2rem;
+      margin-left: 0.5rem;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2rem; }
+    .nav-links a {
+      font-size: 0.875rem;
+      color: var(--warm-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--charcoal); }
+    .nav-cta {
+      background: var(--sage) !important;
+      color: var(--white) !important;
+      padding: 0.55rem 1.25rem !important;
+      border-radius: 2rem !important;
+      font-weight: 500 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--sage-dark) !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 8rem 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -20%; right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,158,126,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -10%; left: -5%;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,197,176,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 2rem; height: 1px;
+      background: var(--sage);
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 4vw, 3.75rem);
+      font-weight: 500;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--sage-dark);
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--warm-gray);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 0.875rem 2rem;
+      border-radius: 2rem;
+      font-size: 0.9rem; font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--sage-dark); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--charcoal);
+      padding: 0.875rem 1.5rem;
+      border-radius: 2rem;
+      font-size: 0.9rem; font-weight: 400;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.15s;
+      background: transparent; cursor: pointer;
+    }
+    .btn-secondary:hover { border-color: var(--charcoal); transform: translateY(-1px); }
+
+    /* Hero card cluster */
+    .hero-visual {
+      display: flex; flex-direction: column; gap: 1rem;
+      position: relative;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 4px 24px rgba(42,42,42,0.06);
+    }
+    .stat-card.accent {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+    .stat-card.accent * { color: var(--white) !important; }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+    }
+    .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .mini-notification {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 0.875rem;
+      box-shadow: 0 2px 16px rgba(42,42,42,0.05);
+    }
+    .notif-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--sage-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .notif-text { font-size: 0.8rem; color: var(--charcoal); line-height: 1.4; }
+    .notif-text strong { font-weight: 500; }
+    .notif-text span { color: var(--warm-gray); }
+
+    /* ── HOW IT WORKS ── */
+    .section { padding: 6rem 3rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--sage); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .section-eyebrow::before {
+      content: ''; display: block;
+      width: 1.5rem; height: 1px; background: var(--sage);
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.85rem, 3vw, 2.75rem);
+      font-weight: 500; line-height: 1.2;
+      color: var(--charcoal); margin-bottom: 1rem;
+    }
+    h2 em { font-style: italic; color: var(--sage-dark); }
+    .section-sub {
+      font-size: 1rem; color: var(--warm-gray);
+      font-weight: 300; max-width: 520px;
+      line-height: 1.7; margin-bottom: 3.5rem;
+    }
+
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .step-card:hover {
+      box-shadow: 0 8px 32px rgba(42,42,42,0.08);
+      transform: translateY(-2px);
+    }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 400;
+      color: var(--sage-light);
+      line-height: 1; margin-bottom: 1rem;
+    }
+    .step-title {
+      font-size: 1rem; font-weight: 500;
+      color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .step-body {
+      font-size: 0.875rem; color: var(--warm-gray);
+      font-weight: 300; line-height: 1.65;
+    }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      padding: 6rem 3rem;
+      background: var(--charcoal);
+      position: relative; overflow: hidden;
+    }
+    .pricing-section::before {
+      content: '';
+      position: absolute; top: -30%; right: -5%;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(122,158,126,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .pricing-inner { max-width: 1100px; margin: 0 auto; }
+    .pricing-section .section-eyebrow { color: var(--sage); }
+    .pricing-section h2 { color: var(--white); }
+    .pricing-section .section-sub { color: rgba(255,255,255,0.55); }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .pricing-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      transition: background 0.2s;
+    }
+    .pricing-card:hover { background: rgba(255,255,255,0.08); }
+    .pricing-card.featured {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+    .pricing-tier {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1.25rem;
+    }
+    .pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.8); }
+    .pricing-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 500;
+      color: var(--white); line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .pricing-per {
+      font-size: 0.8rem; color: rgba(255,255,255,0.5);
+      margin-bottom: 1.75rem;
+    }
+    .pricing-card.featured .pricing-per { color: rgba(255,255,255,0.75); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .pricing-features li {
+      font-size: 0.85rem; color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      display: flex; align-items: flex-start; gap: 0.625rem;
+      line-height: 1.4;
+    }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.9); }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--sage);
+      font-size: 0.75rem; font-weight: 600;
+      flex-shrink: 0; margin-top: 0.1rem;
+    }
+    .pricing-card.featured .pricing-features li::before { color: var(--white); }
+    .pricing-card-cta {
+      display: block; text-align: center;
+      margin-top: 2rem;
+      padding: 0.75rem;
+      border-radius: 2rem;
+      font-size: 0.85rem; font-weight: 500;
+      text-decoration: none;
+      background: rgba(255,255,255,0.1);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .pricing-card.featured .pricing-card-cta {
+      background: var(--charcoal);
+      border-color: var(--charcoal);
+    }
+    .pricing-card-cta:hover { background: rgba(255,255,255,0.2); }
+    .pricing-card.featured .pricing-card-cta:hover { background: #1a1a1a; }
+    .pricing-note {
+      text-align: center; margin-top: 2.5rem;
+      font-size: 0.8rem; color: rgba(255,255,255,0.35);
+    }
+    .pricing-note a { color: rgba(255,255,255,0.55); text-decoration: underline; }
+
+    /* ── USE CASES ── */
+    .use-cases-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .use-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 1.25rem;
+      padding: 2rem;
+      display: flex; gap: 1.25rem;
+      transition: box-shadow 0.2s;
+    }
+    .use-card:hover { box-shadow: 0 6px 24px rgba(42,42,42,0.07); }
+    .use-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--sage-light);
+      border-radius: 0.875rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .use-title {
+      font-size: 0.95rem; font-weight: 500;
+      color: var(--charcoal); margin-bottom: 0.375rem;
+    }
+    .use-body {
+      font-size: 0.85rem; color: var(--warm-gray);
+      font-weight: 300; line-height: 1.6;
+    }
+
+    /* ── DEMO FORM ── */
+    .demo-section {
+      padding: 6rem 3rem;
+      background: var(--blush-light);
+      border-top: 1px solid var(--border);
+    }
+    .demo-inner {
+      max-width: 680px; margin: 0 auto; text-align: center;
+    }
+    .demo-inner h2 { margin-bottom: 0.75rem; }
+    .demo-inner .section-sub { margin: 0 auto 2.5rem; text-align: center; }
+    .demo-form {
+      display: flex; flex-direction: column; gap: 1rem;
+      text-align: left;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
+    .form-label {
+      font-size: 0.8rem; font-weight: 500;
+      color: var(--charcoal); letter-spacing: 0.02em;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--sage);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 2rem;
+      background: var(--charcoal);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; font-weight: 500;
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--sage-dark); transform: translateY(-1px); }
+    .form-disclaimer {
+      text-align: center; font-size: 0.75rem;
+      color: var(--warm-gray); margin-top: 0.75rem;
+    }
+
+    /* Success state */
+    .form-success {
+      display: none; text-align: center; padding: 3rem 2rem;
+    }
+    .form-success.visible { display: block; }
+    .demo-form.hidden { display: none; }
+    .success-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--sage-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 1rem;
+    }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+    .success-body { font-size: 0.9rem; color: var(--warm-gray); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 3rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; color: var(--charcoal);
+      text-decoration: none;
+    }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a {
+      font-size: 0.8rem; color: var(--warm-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--charcoal); }
+    .footer-copy { font-size: 0.75rem; color: var(--warm-gray); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .hero-eyebrow { animation-delay: 0.1s; }
+    h1             { animation-delay: 0.2s; }
+    .hero-sub      { animation-delay: 0.3s; }
+    .hero-actions  { animation-delay: 0.4s; }
+    .hero-visual   { opacity: 0; animation: fadeUp 0.7s 0.35s ease forwards; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-visual { order: -1; }
+      .section { padding: 4rem 1.5rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .pricing-section { padding: 4rem 1.5rem; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .use-cases-grid { grid-template-columns: 1fr; }
+      .demo-section { padding: 4rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">🌸 Petals <span>&</span> Packages <span class="nav-badge">For Business</span></a>
+    <div class="nav-links">
+      <a href="#how-it-works">How it works</a>
+      <a href="#use-cases">Use cases</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/" >For individuals</a>
+      <a href="#demo" class="nav-cta">Request a demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">For People Operations &amp; HR Teams</div>
+        <h1>Your team feels <em>remembered.</em> Automatically.</h1>
+        <p class="hero-sub">Petals &amp; Packages automates thoughtful gifting for every employee birthday, work anniversary, and life milestone — so your people ops team can focus on what matters.</p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn-primary">Request a demo →</a>
+          <a href="#pricing" class="btn-secondary">See pricing</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="stat-card accent">
+          <div class="stat-number">94%</div>
+          <div class="stat-label">of employees say feeling appreciated improves their work motivation</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-number">0</div>
+            <div class="stat-label">Occasions ever missed after setup</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5 min</div>
+            <div class="stat-label">Average setup time per employee</div>
+          </div>
+        </div>
+        <div class="mini-notification">
+          <div class="notif-icon">🌸</div>
+          <div class="notif-text">
+            <strong>Birthday delivery confirmed</strong><br/>
+            <span>Sarah Chen's bouquet arriving today · Work anniversary next week</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-eyebrow">How it works</div>
+      <h2>Set it up once.<br/><em>Never forget again.</em></h2>
+      <p class="section-sub">Connect your HRIS or upload a CSV. We handle every occasion from there — automatically.</p>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-title">Import your team</div>
+          <div class="step-body">Upload a simple CSV or connect your HRIS. We sync birthdays, work anniversaries, and any other occasions you want to celebrate.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-title">Customize your program</div>
+          <div class="step-body">Choose what occasions to recognize, set your per-employee budget, and pick from curated gift options — flowers, spa gift cards, and more.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-title">We handle the rest</div>
+          <div class="step-body">Reminders go out automatically. Gifts are ordered and delivered on time. You get a monthly report. Your team feels valued — zero manual effort.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="section" id="use-cases" style="padding-top: 0;">
+    <div class="section-inner">
+      <div class="section-eyebrow">Use cases</div>
+      <h2>Every moment that <em>matters.</em></h2>
+      <p class="section-sub">From the small gestures to the big milestones — we make sure nothing slips through the cracks.</p>
+      <div class="use-cases-grid">
+        <div class="use-card">
+          <div class="use-icon">🎂</div>
+          <div>
+            <div class="use-title">Employee birthdays</div>
+            <div class="use-body">A fresh flower arrangement delivered to their door or office — with a personal note from their manager or the company.</div>
+          </div>
+        </div>
+        <div class="use-card">
+          <div class="use-icon">🏆</div>
+          <div>
+            <div class="use-title">Work anniversaries</div>
+            <div class="use-body">Celebrate 1, 3, 5, and 10-year milestones with tiered gifts that reflect how much you value their tenure.</div>
+          </div>
+        </div>
+        <div class="use-card">
+          <div class="use-icon">👶</div>
+          <div>
+            <div class="use-title">Life milestones</div>
+            <div class="use-body">New baby, new home, or a tough week — automatically recognize the moments that matter most to your team members.</div>
+          </div>
+        </div>
+        <div class="use-card">
+          <div class="use-icon">🤝</div>
+          <div>
+            <div class="use-title">Client appreciation</div>
+            <div class="use-body">Keep key client relationships warm with automated birthday and holiday gifting — making your team look thoughtful at scale.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <div class="section-eyebrow">Corporate pricing</div>
+      <h2>Simple, per-seat pricing.</h2>
+      <p class="section-sub">No setup fees. No annual lock-in. Cancel anytime. Gifts billed separately at cost.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">Starter</div>
+          <div class="pricing-price">$12</div>
+          <div class="pricing-per">per employee / month · up to 50 seats</div>
+          <ul class="pricing-features">
+            <li>Birthdays &amp; work anniversaries</li>
+            <li>Flower delivery via FloristOne</li>
+            <li>CSV import</li>
+            <li>Monthly gifting report</li>
+            <li>Email support</li>
+          </ul>
+          <a href="#demo" class="pricing-card-cta">Get started</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-tier">Growth</div>
+          <div class="pricing-price">$18</div>
+          <div class="pricing-per">per employee / month · up to 250 seats</div>
+          <ul class="pricing-features">
+            <li>Everything in Starter</li>
+            <li>Life milestones &amp; custom occasions</li>
+            <li>HRIS integration (BambooHR, Rippling)</li>
+            <li>Manager personalization layer</li>
+            <li>Spa &amp; experience gift options</li>
+            <li>Dedicated account manager</li>
+          </ul>
+          <a href="#demo" class="pricing-card-cta">Request demo</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Enterprise</div>
+          <div class="pricing-price">Custom</div>
+          <div class="pricing-per">250+ seats · annual contract</div>
+          <ul class="pricing-features">
+            <li>Everything in Growth</li>
+            <li>Custom gift catalog &amp; branding</li>
+            <li>SSO &amp; advanced security</li>
+            <li>Custom HRIS connectors</li>
+            <li>SLA &amp; priority support</li>
+            <li>Procurement &amp; invoicing support</li>
+          </ul>
+          <a href="#demo" class="pricing-card-cta">Contact sales</a>
+        </div>
+      </div>
+      <p class="pricing-note">All plans include a 30-day free trial. Gifts are fulfilled at cost — we never mark up the product. <a href="/">Looking for personal use?</a></p>
+    </div>
+  </section>
+
+  <!-- DEMO FORM -->
+  <section class="demo-section" id="demo">
+    <div class="demo-inner">
+      <div class="section-eyebrow" style="justify-content: center;">Request a demo</div>
+      <h2>See it in action.</h2>
+      <p class="section-sub">We'll walk you through a live demo and build a custom plan for your team size and budget.</p>
+
+      <form class="demo-form" id="demoForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First name</label>
+            <input class="form-input" type="text" placeholder="Jane" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last name</label>
+            <input class="form-input" type="text" placeholder="Smith" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Work email</label>
+            <input class="form-input" type="email" placeholder="jane@company.com" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company</label>
+            <input class="form-input" type="text" placeholder="Acme Inc." required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Team size</label>
+            <select class="form-select" required>
+              <option value="" disabled selected>Select size</option>
+              <option>1–25 employees</option>
+              <option>26–100 employees</option>
+              <option>101–500 employees</option>
+              <option>500+ employees</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your role</label>
+            <select class="form-select" required>
+              <option value="" disabled selected>Select role</option>
+              <option>HR / People Operations</option>
+              <option>Office Manager / Admin</option>
+              <option>Executive / Founder</option>
+              <option>Engineering / Product</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Anything specific you'd like to cover? (optional)</label>
+          <textarea class="form-textarea" placeholder="e.g. We're specifically looking to automate work anniversaries and integrate with BambooHR..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Request my demo →</button>
+        <p class="form-disclaimer">No spam. No sales pressure. We'll reach out within one business day.</p>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">✓</div>
+        <div class="success-title">You're on the list.</div>
+        <p class="success-body">We'll be in touch within one business day to schedule your demo. In the meantime, feel free to explore the <a href="/" style="color: var(--sage-dark);">personal product</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">🌸 Petals &amp; Packages</a>
+    <div class="footer-links">
+      <a href="/">Personal</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:hello@petalsandpackages.com">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Petals &amp; Packages LLC</div>
+  </footer>
+
+  <script>
+    document.getElementById('demoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('demoForm').classList.add('hidden');
+      document.getElementById('formSuccess').classList.add('visible');
+      window.scrollTo({ top: document.getElementById('demo').offsetTop - 80, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
