@@ -1436,11 +1436,11 @@
     el.classList.add('selected');
   }
 
-  // Wire all CTA buttons to open modal
+  // Wire all CTA buttons to open Google Form
   document.querySelectorAll('.btn-primary, .plan-btn, .nav-cta').forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      openModal();
+      window.open('https://docs.google.com/forms/d/1RP3MDT7Fno6A0H8rqsqoULdJQyg3N09UTejDuvR0X7s/viewform', '_blank');
     });
   });
 
@@ -1490,7 +1490,7 @@
     submitBtn.textContent = 'Creating your account...';
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('https://preview-sandbox--69ab692b0795da5a8fe80595.base44.app/api/public-signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
