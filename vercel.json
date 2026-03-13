@@ -1,0 +1,38 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron-reminders",
+      "schedule": "0 17 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/Register",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/Register"
+    },
+    {
+      "source": "/Register/:path*",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/Register/:path*"
+    },
+    {
+      "source": "/Dashboard",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/Dashboard"
+    },
+    {
+      "source": "/Dashboard/:path*",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/Dashboard/:path*"
+    },
+    {
+      "source": "/Home",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/Home"
+    },
+    {
+      "source": "/PrivacyPolicy",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/PrivacyPolicy"
+    },
+    {
+      "source": "/TermsOfService",
+      "destination": "https://69ab692b0795da5a8fe80595.base44.app/TermsOfService"
+    }
+  ]
+}
