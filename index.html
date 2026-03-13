@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petals & Packages — Never forget the moments that matter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --cream-dark: #ede7d9;
+      --terra: #b85c38;
+      --terra-dark: #8f3e20;
+      --terra-light: #f2ddd5;
+      --charcoal: #1e1a17;
+      --warm-mid: #6b5f55;
+      --warm-light: #a89080;
+      --border: #ddd5c8;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--charcoal);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 3rem;
+      background: rgba(245,240,232,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-style: italic;
+      color: var(--terra); text-decoration: none;
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-links a {
+      font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--charcoal); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--terra); }
+    .nav-cta {
+      background: var(--terra) !important;
+      color: var(--white) !important;
+      padding: 0.6rem 1.25rem !important;
+      border-radius: 0.25rem !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--terra-dark) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 9rem 3rem 6rem;
+      background: var(--cream);
+      position: relative; overflow: hidden;
+    }
+    .hero::after {
+      content: '🌸';
+      position: absolute; right: 8%; top: 50%;
+      transform: translateY(-50%);
+      font-size: 18rem; opacity: 0.07;
+      pointer-events: none; line-height: 1;
+    }
+    .hero-inner { max-width: 760px; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 1.75rem;
+      opacity: 0; animation: fadeUp 0.5s 0.1s ease forwards;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block;
+      width: 2.5rem; height: 1px; background: var(--terra);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 500; line-height: 1.1;
+      color: var(--charcoal); margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.6s 0.2s ease forwards;
+    }
+    h1 em { font-style: italic; color: var(--terra); }
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300;
+      color: var(--warm-mid); line-height: 1.75;
+      max-width: 520px; margin-bottom: 2.75rem;
+      opacity: 0; animation: fadeUp 0.6s 0.3s ease forwards;
+    }
+    .hero-btns {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.6s 0.4s ease forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center;
+      background: var(--terra); color: var(--white);
+      padding: 0.875rem 2rem; border-radius: 0.25rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--terra-dark); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-flex; align-items: center;
+      background: transparent; color: var(--charcoal);
+      padding: 0.875rem 2rem; border-radius: 0.25rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid var(--border); cursor: pointer;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--charcoal); transform: translateY(-1px); }
+
+    /* SECTIONS */
+    .section { padding: 6rem 3rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-eyebrow {
+      display: flex; align-items: center; gap: 0.875rem;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 1.25rem;
+    }
+    .section-eyebrow::before {
+      content: ''; display: block;
+      width: 2rem; height: 1px; background: var(--terra);
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 500; line-height: 1.15;
+      color: var(--charcoal); margin-bottom: 1rem;
+    }
+    h2 em { font-style: italic; color: var(--terra); }
+    .section-sub {
+      font-size: 1rem; font-weight: 300;
+      color: var(--warm-mid); line-height: 1.75;
+      max-width: 520px; margin-bottom: 3.5rem;
+    }
+
+    /* HOW IT WORKS */
+    .how-section { background: var(--cream-dark); }
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border); border-radius: 0.5rem; overflow: hidden;
+    }
+    .step {
+      padding: 2.5rem; border-right: 1px solid var(--border);
+      background: var(--white); transition: background 0.2s;
+    }
+    .step:last-child { border-right: none; }
+    .step:hover { background: var(--terra-light); }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 400; color: var(--terra-light);
+      line-height: 1; margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+    }
+    .step-title { font-size: 0.95rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.625rem; }
+    .step-body { font-size: 0.875rem; font-weight: 300; color: var(--warm-mid); line-height: 1.7; }
+
+    /* OCCASIONS */
+    .occasions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .occasion-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 0.5rem; padding: 2rem;
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .occasion-card:hover { box-shadow: 0 8px 32px rgba(184,92,56,0.08); transform: translateY(-2px); }
+    .occasion-icon {
+      width: 48px; height: 48px; flex-shrink: 0;
+      background: var(--terra-light); border-radius: 0.375rem;
+      display: flex; align-items: center; justify-content: center; font-size: 1.375rem;
+    }
+    .occasion-title { font-size: 1rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.375rem; }
+    .occasion-body { font-size: 0.85rem; font-weight: 300; color: var(--warm-mid); line-height: 1.65; }
+
+    /* PRICING */
+    .pricing-section { background: var(--charcoal); }
+    .pricing-section .section-eyebrow { color: var(--terra); }
+    .pricing-section h2 { color: var(--white); }
+    .pricing-section .section-sub { color: rgba(255,255,255,0.5); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .pricing-card {
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 0.5rem;
+      padding: 2.25rem; background: rgba(255,255,255,0.04);
+      transition: background 0.2s;
+    }
+    .pricing-card:hover { background: rgba(255,255,255,0.07); }
+    .pricing-card.featured { background: var(--terra); border-color: var(--terra); }
+    .pricing-tier {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 1.5rem;
+    }
+    .pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.8); }
+    .pricing-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 500; color: var(--white); line-height: 1;
+    }
+    .pricing-per { font-size: 0.8rem; font-weight: 300; color: rgba(255,255,255,0.4); margin: 0.25rem 0 2rem; }
+    .pricing-card.featured .pricing-per { color: rgba(255,255,255,0.7); }
+    .pricing-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.75rem; }
+    .pricing-card.featured .pricing-divider { border-color: rgba(255,255,255,0.25); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.875rem; margin-bottom: 2rem; }
+    .pricing-features li {
+      font-size: 0.85rem; font-weight: 300; color: rgba(255,255,255,0.65);
+      display: flex; gap: 0.625rem; align-items: flex-start; line-height: 1.4;
+    }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.9); }
+    .pricing-features li::before { content: '—'; color: var(--terra); flex-shrink: 0; font-size: 0.75rem; }
+    .pricing-card.featured .pricing-features li::before { color: rgba(255,255,255,0.6); }
+    .pricing-btn {
+      display: block; width: 100%; text-align: center; padding: 0.75rem;
+      border-radius: 0.25rem; font-family: 'Jost', sans-serif;
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; background: rgba(255,255,255,0.1); color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15); transition: background 0.2s;
+    }
+    .pricing-btn:hover { background: rgba(255,255,255,0.18); }
+    .pricing-card.featured .pricing-btn { background: var(--charcoal); border-color: var(--charcoal); }
+    .pricing-card.featured .pricing-btn:hover { background: #111; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(30,26,23,0.65); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--cream); border-radius: 0.75rem;
+      padding: 2.5rem; width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto; position: relative;
+    }
+    .modal-close {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.25rem; color: var(--warm-light); line-height: 1;
+    }
+    .modal-close:hover { color: var(--charcoal); }
+    .modal-eyebrow {
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--terra); margin-bottom: 0.5rem;
+    }
+    .modal h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem; font-weight: 500; color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .modal-sub { font-size: 0.875rem; font-weight: 300; color: var(--warm-mid); margin-bottom: 1.75rem; line-height: 1.6; }
+    .form-section-title {
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--warm-mid); margin: 1.5rem 0 0.875rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .plan-selector { display: flex; flex-direction: column; gap: 0.625rem; margin-bottom: 1.5rem; }
+    .plan-option {
+      display: flex; align-items: center; gap: 0.875rem;
+      padding: 1rem 1.25rem; border: 1.5px solid var(--border);
+      border-radius: 0.375rem; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .plan-option:hover, .plan-option.selected { border-color: var(--terra); background: var(--terra-light); }
+    .plan-option input[type="radio"] { display: none; }
+    .plan-radio {
+      width: 16px; height: 16px; border-radius: 50%;
+      border: 1.5px solid var(--border); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .plan-option.selected .plan-radio { border-color: var(--terra); background: var(--terra); }
+    .plan-option.selected .plan-radio::after {
+      content: ''; display: block; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--white);
+    }
+    .plan-info { flex: 1; }
+    .plan-name { font-size: 0.875rem; font-weight: 500; color: var(--charcoal); }
+    .plan-desc { font-size: 0.75rem; font-weight: 300; color: var(--warm-mid); }
+    .plan-price { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 500; color: var(--terra); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.375rem; margin-bottom: 0.75rem; }
+    .form-label { font-size: 0.75rem; font-weight: 500; color: var(--charcoal); }
+    .form-input, .form-select {
+      width: 100%; padding: 0.7rem 0.875rem;
+      border: 1px solid var(--border); border-radius: 0.375rem;
+      font-family: 'Jost', sans-serif; font-size: 0.875rem;
+      color: var(--charcoal); background: var(--white);
+      outline: none; transition: border-color 0.2s; appearance: none;
+    }
+    .form-input:focus, .form-select:focus { border-color: var(--terra); }
+    .form-input::placeholder { color: var(--warm-light); }
+    .recipient-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 0.375rem; padding: 1.25rem; margin-bottom: 0.75rem; position: relative;
+    }
+    .recipient-label { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terra); margin-bottom: 0.875rem; }
+    .remove-btn { position: absolute; top: 1rem; right: 1rem; background: none; border: none; cursor: pointer; font-size: 1rem; color: var(--warm-light); }
+    .remove-btn:hover { color: var(--terra); }
+    .add-recipient-btn {
+      width: 100%; padding: 0.75rem; border: 1px dashed var(--border);
+      border-radius: 0.375rem; background: none; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 400;
+      color: var(--warm-mid); display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      transition: border-color 0.2s, color 0.2s; margin-bottom: 1.25rem;
+    }
+    .add-recipient-btn:hover { border-color: var(--terra); color: var(--terra); }
+    .form-submit {
+      width: 100%; padding: 0.9rem; background: var(--terra); color: var(--white);
+      border: none; border-radius: 0.25rem; cursor: pointer;
+      font-family: 'Jost', sans-serif; font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase; transition: background 0.2s;
+    }
+    .form-submit:hover { background: var(--terra-dark); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+    .form-disclaimer { text-align: center; font-size: 0.72rem; font-weight: 300; color: var(--warm-light); margin-top: 0.875rem; line-height: 1.5; }
+    .modal-success { display: none; text-align: center; padding: 2rem 0; }
+    .modal-success.visible { display: block; }
+    .modal-form.hidden { display: none; }
+    .success-icon {
+      width: 56px; height: 56px; border-radius: 50%; background: var(--terra-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 1.25rem;
+    }
+    .success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: var(--charcoal); margin-bottom: 0.5rem; }
+    .success-body { font-size: 0.875rem; font-weight: 300; color: var(--warm-mid); }
+
+    /* FOOTER */
+    footer {
+      padding: 2.5rem 3rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem; background: var(--cream);
+    }
+    .footer-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; color: var(--terra); text-decoration: none; }
+    .footer-links { display: flex; gap: 2rem; }
+    .footer-links a { font-size: 0.75rem; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--warm-mid); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--charcoal); }
+    .footer-copy { font-size: 0.72rem; color: var(--warm-light); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      .section { padding: 4rem 1.5rem; }
+      .steps { grid-template-columns: 1fr; }
+      .step { border-right: none; border-bottom: 1px solid var(--border); }
+      .step:last-child { border-bottom: none; }
+      .occasions-grid, .pricing-grid { grid-template-columns: 1fr; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+      .modal { padding: 1.75rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Petals & Packages</a>
+    <div class="nav-links">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#occasions">Occasions</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://app.base44.com/apps/69ab692b0795da5a8fe80595" target="_blank" class="nav-cta">⊞ My Dashboard</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Automated gifting for forgetful partners</div>
+      <h1>Never forget the moments<br/>that <em>matter</em></h1>
+      <p class="hero-sub">Petals is your personal gifting concierge — automating reminders, flowers, restaurant recommendations, and more for every anniversary and birthday in your life.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="openModal()">Get Started</button>
+        <a href="#how-it-works" class="btn-outline">See How It Works</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section how-section" id="how-it-works">
+    <div class="section-inner">
+      <div class="section-eyebrow">How it works</div>
+      <h2>Simple, <em>effortless</em> gifting.</h2>
+      <p class="section-sub">Set it up once and never miss another birthday, anniversary, or special occasion again.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-title">Add your people</div>
+          <div class="step-body">Tell us about the important people in your life and the occasions you want to remember for each of them.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-title">We remind you</div>
+          <div class="step-body">Receive a personalized SMS 7 days before, the day before, and the morning of each occasion — with curated gift ideas.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-title">Send something beautiful</div>
+          <div class="step-body">Order fresh flowers delivered by a local florist with one tap. No scrambling — just the right gift at the right moment.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="occasions">
+    <div class="section-inner">
+      <div class="section-eyebrow">Occasions</div>
+      <h2>Every moment <em>remembered.</em></h2>
+      <p class="section-sub">From the big milestones to the ones that sneak up on you — Petals keeps you ahead of every occasion that matters.</p>
+      <div class="occasions-grid">
+        <div class="occasion-card">
+          <div class="occasion-icon">💍</div>
+          <div>
+            <div class="occasion-title">Anniversaries</div>
+            <div class="occasion-body">Never let another anniversary slip by. Get reminders with curated flower arrangements and restaurant recommendations tailored to your city.</div>
+          </div>
+        </div>
+        <div class="occasion-card">
+          <div class="occasion-icon">🎂</div>
+          <div>
+            <div class="occasion-title">Birthdays</div>
+            <div class="occasion-body">Celebrate the birthdays of everyone who matters — partners, parents, friends — with the perfect gift delivered on time, every time.</div>
+          </div>
+        </div>
+        <div class="occasion-card">
+          <div class="occasion-icon">💐</div>
+          <div>
+            <div class="occasion-title">Just because</div>
+            <div class="occasion-body">Sometimes the most meaningful moments aren't on a calendar. Schedule a surprise delivery any day you want to make someone feel special.</div>
+          </div>
+        </div>
+        <div class="occasion-card">
+          <div class="occasion-icon">✨</div>
+          <div>
+            <div class="occasion-title">Any occasion</div>
+            <div class="occasion-body">Mother's Day, Valentine's Day, graduations, new babies — add any occasion and we'll make sure you're ready when it arrives.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing-section" id="pricing">
+    <div class="section-inner">
+      <div class="section-eyebrow">Pricing</div>
+      <h2>Pick your <em>plan.</em></h2>
+      <p class="section-sub">Simple monthly subscriptions. Cancel anytime. Flowers billed separately at cost.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="pricing-tier">Essentials</div>
+          <div class="pricing-price">$24<span style="font-size:1.25rem">.99</span></div>
+          <div class="pricing-per">per month</div>
+          <hr class="pricing-divider"/>
+          <ul class="pricing-features">
+            <li>Up to 3 recipients</li>
+            <li>SMS reminders (7-day, 1-day, day-of)</li>
+            <li>Flower delivery via FloristOne</li>
+            <li>Birthday &amp; anniversary occasions</li>
+            <li>Restaurant recommendations</li>
+          </ul>
+          <button class="pricing-btn" onclick="openModal('essentials')">Get Started</button>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-tier">Partner Pro</div>
+          <div class="pricing-price">$44<span style="font-size:1.25rem">.99</span></div>
+          <div class="pricing-per">per month</div>
+          <hr class="pricing-divider"/>
+          <ul class="pricing-features">
+            <li>Up to 8 recipients</li>
+            <li>Everything in Essentials</li>
+            <li>Personalized gift suggestions</li>
+            <li>Custom occasion types</li>
+            <li>Priority SMS delivery</li>
+          </ul>
+          <button class="pricing-btn" onclick="openModal('partner_pro')">Get Started</button>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-tier">Legendary</div>
+          <div class="pricing-price">$89<span style="font-size:1.25rem">.99</span></div>
+          <div class="pricing-per">per month</div>
+          <hr class="pricing-divider"/>
+          <ul class="pricing-features">
+            <li>Unlimited recipients</li>
+            <li>Everything in Partner Pro</li>
+            <li>10% discount on all flower orders</li>
+            <li>Concierge gift curation</li>
+            <li>Early access to new features</li>
+          </ul>
+          <button class="pricing-btn" onclick="openModal('legendary')">Get Started</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/" class="footer-logo">Petals & Packages</a>
+    <div class="footer-links">
+      <a href="#how-it-works">How It Works</a>
+      <a href="#occasions">Occasions</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/corporate.html">For Business</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+    <div class="footer-copy">© 2026 Petals & Packages LLC</div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-form" id="modalForm">
+        <div class="modal-eyebrow">Get started</div>
+        <h3>Create your account</h3>
+        <p class="modal-sub">Choose a plan and add the people you never want to forget.</p>
+        <div class="form-section-title">Step 1 — Choose your plan</div>
+        <div class="plan-selector">
+          <label class="plan-option" id="plan-essentials">
+            <input type="radio" name="plan" value="essentials" />
+            <div class="plan-radio"></div>
+            <div class="plan-info"><div class="plan-name">Essentials</div><div class="plan-desc">Up to 3 recipients</div></div>
+            <div class="plan-price">$24.99/mo</div>
+          </label>
+          <label class="plan-option" id="plan-partner_pro">
+            <input type="radio" name="plan" value="partner_pro" />
+            <div class="plan-radio"></div>
+            <div class="plan-info"><div class="plan-name">Partner Pro</div><div class="plan-desc">Up to 8 recipients</div></div>
+            <div class="plan-price">$44.99/mo</div>
+          </label>
+          <label class="plan-option" id="plan-legendary">
+            <input type="radio" name="plan" value="legendary" />
+            <div class="plan-radio"></div>
+            <div class="plan-info"><div class="plan-name">Legendary</div><div class="plan-desc">Unlimited recipients</div></div>
+            <div class="plan-price">$89.99/mo</div>
+          </label>
+        </div>
+        <div class="form-section-title">Step 2 — Your details</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First name</label><input class="form-input" type="text" id="firstName" placeholder="Patrick" /></div>
+          <div class="form-group"><label class="form-label">Last name</label><input class="form-input" type="text" id="lastName" placeholder="Smith" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email address</label><input class="form-input" type="email" id="email" placeholder="you@email.com" /></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Phone (for SMS)</label><input class="form-input" type="tel" id="phone" placeholder="+1 (415) 555-0100" /></div>
+          <div class="form-group"><label class="form-label">Your city</label><input class="form-input" type="text" id="city" placeholder="San Francisco" /></div>
+        </div>
+        <div class="form-section-title">Step 3 — Add recipients</div>
+        <div id="recipientsContainer">
+          <div class="recipient-card">
+            <div class="recipient-label">Recipient 1</div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Sarah" /></div>
+              <div class="form-group"><label class="form-label">Relationship</label>
+                <select class="form-select"><option value="">Select...</option><option>Partner</option><option>Family</option><option>Friend</option><option>Colleague</option><option>Other</option></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">Occasion</label>
+                <select class="form-select"><option value="">Select...</option><option>Birthday</option><option>Anniversary</option><option>Mother's Day</option><option>Valentine's Day</option><option>Other</option></select>
+              </div>
+              <div class="form-group"><label class="form-label">Date</label><input class="form-input" type="date" /></div>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="add-recipient-btn" onclick="addRecipient()">+ Add another recipient</button>
+        <button class="form-submit" onclick="handleSignup()">Create My Account →</button>
+        <p class="form-disclaimer">By signing up you agree to our Terms of Service and Privacy Policy.<br/>SMS charges apply. Cancel anytime.</p>
+      </div>
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-icon">🌸</div>
+        <div class="success-title">You're all set.</div>
+        <p class="success-body">Welcome to Petals & Packages. Your first reminder will arrive before the next occasion on your list.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let recipientCount = 1;
+
+    function openModal(plan) {
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (plan) {
+        document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
+        const t = document.getElementById('plan-' + plan);
+        if (t) { t.classList.add('selected'); t.querySelector('input').checked = true; }
+      }
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+    document.querySelectorAll('.plan-option').forEach(opt => {
+      opt.addEventListener('click', function() {
+        document.querySelectorAll('.plan-option').forEach(el => el.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+    function addRecipient() {
+      recipientCount++;
+      const c = document.getElementById('recipientsContainer');
+      const d = document.createElement('div');
+      d.className = 'recipient-card';
+      d.innerHTML = `<div class="recipient-label">Recipient ${recipientCount}</div>
+        <button class="remove-btn" onclick="this.closest('.recipient-card').remove()">✕</button>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Name" /></div>
+          <div class="form-group"><label class="form-label">Relationship</label>
+            <select class="form-select"><option value="">Select...</option><option>Partner</option><option>Family</option><option>Friend</option><option>Colleague</option><option>Other</option></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Occasion</label>
+            <select class="form-select"><option value="">Select...</option><option>Birthday</option><option>Anniversary</option><option>Mother's Day</option><option>Valentine's Day</option><option>Other</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Date</label><input class="form-input" type="date" /></div>
+        </div>`;
+      c.appendChild(d);
+    }
+    async function handleSignup() {
+      const name = (document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value).trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim().replace(/[\s\-\(\)]/g, '');
+      const city = document.getElementById('city').value.trim();
+      const selectedPlan = document.querySelector('.plan-option.selected input');
+      if (!name || !email || !phone || !city || !selectedPlan) {
+        alert('Please fill in all required fields and select a plan.');
+        return;
+      }
+      const recipients = [];
+      document.querySelectorAll('.recipient-card').forEach(card => {
+        const inputs = card.querySelectorAll('input, select');
+        const recipientName = inputs[0].value.trim();
+        if (recipientName) {
+          recipients.push({
+            recipientName,
+            relationshipType: inputs[1].value || 'Other',
+            occasions: inputs[2].value && inputs[3].value ? [{ occasionType: inputs[2].value, occasionDate: inputs[3].value }] : []
+          });
+        }
+      });
+      const btn = document.querySelector('.form-submit');
+      btn.textContent = 'Setting up your account...';
+      btn.disabled = true;
+      try {
+        const r = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ customerName: name, customerEmail: email, customerPhone: phone, customerCity: city, selectedPlanId: selectedPlan.value, smsOptIn: true, recipients })
+        });
+        if (r.ok) {
+          document.getElementById('modalForm').classList.add('hidden');
+          document.getElementById('modalSuccess').classList.add('visible');
+        } else { throw new Error(); }
+      } catch {
+        alert('Something went wrong. Please try again.');
+        btn.textContent = 'Create My Account →';
+        btn.disabled = false;
+      }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+</body>
+</html>
